@@ -13,6 +13,21 @@
 
 ---
 
+## 📺 Explanatory Video Walkthrough
+
+A comprehensive video walkthrough demonstrating the Assignment 2 safety guardrails, code-level RBAC authorization, human-in-the-loop approval center, immutable security audit trail, and comparative evaluation matrix is available at:
+
+- **Video Link**: [Watch Assignment 2 Explanatory Video Walkthrough (Google Drive)](https://drive.google.com/file/d/1e3LRoJJkju0EYF0XWNxUXcyaSB519W4V/view?usp=drive_link)
+- **Demonstrated Components**:
+  1. **Human-in-the-Loop Sensitive Action Approval Center** (`/app/approvals`)
+  2. **Security & Authorization Audit Trail** with live filtering (`/app/audit`)
+  3. **Code-Level RBAC Cross-Student Access Blocking** (Scenario 2)
+  4. **Staged Banking Mutation with Zero-Mutation Rejection Guarantee** (Scenario 3 & 4)
+  5. **Comparative Evaluation Matrix & Live Benchmark Execution** (Assignment 1 vs Assignment 2)
+  6. **Zero-Trust Secret Scrubbing & Persistent Memory Protection** (Scenario 5)
+
+---
+
 ## 🛡️ Assignment 2 Core Privacy & Safety Scenarios
 
 CampusShield AI extends the baseline support agent (Assignment 1) into a production-grade institutional system satisfying all 5 key assignment scenarios:
