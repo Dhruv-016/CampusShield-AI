@@ -1,0 +1,2 @@
+# Retrieval
+Handbook → split on `## ` headings → heading kept in chunk → long sections split by sentence with 1-sentence overlap → stable IDs (`handbook-1-s3-0`). BM25 (k1=1.5, b=0.75), section titles weighted, stopwords/light stemming, min score 2.0, top 3. Mode label: `lexical-bm25`. Swap by implementing `search(query, limit, min_score)` elsewhere. Replace the handbook: `python scripts/ingest_handbook.py path/to/file.md`.

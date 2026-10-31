@@ -1,0 +1,11 @@
+# Limitations
+- Not run end-to-end by the author: backend API tests and the frontend build need `pip install` / `npm install` on your machine. Fix any version issues that appear.
+- Retrieval is lexical BM25, not semantic. Paraphrased questions with no shared words may miss.
+- Routing is heuristic (+ optional LLM classification); unusual phrasing can route wrongly.
+- Sensitive-data detection is regex-based and imperfect.
+- Single fixed demo identity (`DEMO_STUDENT_ID`); no authentication — that is Assignment 2.
+- No Alembic migrations (`create_all`); no frontend tests; no PostgreSQL testing.
+- Seed calendar dates end Jan 2027; set `DEMO_TODAY` after that.
+- Live-mode evaluation uses string checks (e.g. "25,000"); an LLM may format numbers differently and fail the check.
+- Token counts exist only when Groq reports `usage`; none are estimated.
+- Rate limiting is in-memory per process.

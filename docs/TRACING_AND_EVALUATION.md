@@ -1,0 +1,2 @@
+# Tracing & evaluation
+Each request writes a `traces` row: route, tool calls, chunk IDs, memory IDs, context counts, ordered events with ms offsets, latency (`perf_counter`), provider status, token usage (provider-reported only; sources: provider | partial | unavailable). Evaluation (`data/evaluation_cases.json`, 10 cases) runs the real agent; `scoring.py` compares observed route/tools/evidence/leaks to expectations. Modes: local (no LLM), live (blocked if unconfigured). Evaluation-created memories are removed afterwards.
