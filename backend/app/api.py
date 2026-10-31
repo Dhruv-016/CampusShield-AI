@@ -680,7 +680,7 @@ def list_approvals(
         stmt = stmt.where(ActionApproval.status == status)
     stmt = stmt.order_by(ActionApproval.created_at.desc()).limit(limit).offset(offset)
     rows = db.scalars(stmt).all()
-    return [
+    items = [
         {
             "id": a.id,
             "student_id": a.student_id,
@@ -697,6 +697,10 @@ def list_approvals(
         }
         for a in rows
     ]
+    return {
+        "total": len(items),
+        "items": items,
+    }
 
 
 @router.get("/approvals/{appv_id}")

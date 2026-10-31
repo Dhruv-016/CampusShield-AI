@@ -34,14 +34,15 @@ export default function SecurityAuditPage() {
     setLoading(true);
     try {
       const [logsRes, statsRes] = await Promise.all([
-        api<{ total: number; items: SecurityAuditItem[] }>("/audit-logs?limit=100"),
+        api<{ total?: number; items?: SecurityAuditItem[] } | SecurityAuditItem[]>("/audit-logs?limit=100"),
         api<AuditStats>("/audit-logs/stats"),
       ]);
-      setLogs(logsRes.items);
-      setTotal(logsRes.total);
+      const items = Array.isArray(logsRes) ? logsRes : (Array.isArray(logsRes?.items) ? logsRes.items : []);
+      setLogs(items);
+      setTotal(typeof logsRes === "object" && "total" in logsRes && typeof logsRes.total === "number" ? logsRes.total : items.length);
       setStats(statsRes);
     } catch {
-      // Fallback synthetic audit items if database is clean
+      setLogs([]);
     } finally {
       setLoading(false);
     }
@@ -51,7 +52,8 @@ export default function SecurityAuditPage() {
     fetchAuditData();
   }, []);
 
-  const filteredLogs = logs.filter((log) => {
+  const list = Array.isArray(logs) ? logs : [];
+  const filteredLogs = list.filter((log) => {
     const matchesCat =
       filterCategory === "all" || log.action_category === filterCategory;
     const matchesDec =

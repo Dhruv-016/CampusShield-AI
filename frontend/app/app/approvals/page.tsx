@@ -32,10 +32,11 @@ export default function ApprovalsPage() {
   const fetchApprovals = async () => {
     setLoading(true);
     try {
-      const res = await api<{ total: number; items: ActionApprovalItem[] }>("/approvals");
-      setApprovals(res.items);
+      const res = await api<{ total?: number; items?: ActionApprovalItem[] } | ActionApprovalItem[]>("/approvals");
+      const items = Array.isArray(res) ? res : (Array.isArray(res?.items) ? res.items : []);
+      setApprovals(items);
     } catch {
-      // Keep empty or current if failed
+      setApprovals([]);
     } finally {
       setLoading(false);
     }
@@ -59,7 +60,7 @@ export default function ApprovalsPage() {
 
       // Optimistic update in list
       setApprovals((prev) =>
-        prev.map((item) =>
+        (Array.isArray(prev) ? prev : []).map((item) =>
           (item.id === approvalId || item.approval_id === approvalId) ? res : item
         )
       );
@@ -84,14 +85,15 @@ export default function ApprovalsPage() {
     }
   };
 
-  const filteredApprovals = approvals.filter((item) => {
+  const list = Array.isArray(approvals) ? approvals : [];
+  const filteredApprovals = list.filter((item) => {
     if (filterStatus === "all") return true;
     return item.status === filterStatus;
   });
 
-  const pendingCount = approvals.filter((a) => a.status === "pending").length;
-  const approvedCount = approvals.filter((a) => a.status === "approved").length;
-  const rejectedCount = approvals.filter((a) => a.status === "rejected").length;
+  const pendingCount = list.filter((a) => a.status === "pending").length;
+  const approvedCount = list.filter((a) => a.status === "approved").length;
+  const rejectedCount = list.filter((a) => a.status === "rejected").length;
 
   return (
     <div className="space-y-8">
